@@ -9,9 +9,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // MARK - IBOutlets
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var pickerView: UIPickerView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
 

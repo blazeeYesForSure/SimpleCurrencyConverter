@@ -16,10 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4R-EU-7df">
-                                <rect key="frame" x="0.0" y="646" width="414" height="216"/>
-                            </pickerView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FwI-kB-uI2">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Wprowadź wartość" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FwI-kB-uI2">
                                 <rect key="frame" x="20" y="602" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -30,30 +27,37 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yM2-gP-V8a">
+                                <rect key="frame" x="100" y="711" width="214" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Przelicz"/>
+                                <connections>
+                                    <action selector="Convertbutton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C8I-DK-N9c"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yM2-gP-V8a" secondAttribute="trailing" constant="100" id="Ctu-lO-hh5"/>
+                            <constraint firstItem="yM2-gP-V8a" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="DbO-Du-m4x"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FwI-kB-uI2" secondAttribute="trailing" constant="20" id="EqV-OC-ln1"/>
-                            <constraint firstItem="C4R-EU-7df" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="IDd-g6-ghA"/>
-                            <constraint firstItem="C4R-EU-7df" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="PDU-vZ-qdI"/>
-                            <constraint firstItem="C4R-EU-7df" firstAttribute="top" secondItem="FwI-kB-uI2" secondAttribute="bottom" constant="10" id="T9P-tf-2wI"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yM2-gP-V8a" secondAttribute="bottom" constant="120" id="Oaf-rG-0jr"/>
+                            <constraint firstItem="yM2-gP-V8a" firstAttribute="top" secondItem="FwI-kB-uI2" secondAttribute="bottom" constant="75" id="TJY-je-w34"/>
                             <constraint firstItem="Ag8-GT-t3k" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Ylx-MN-UEu"/>
                             <constraint firstItem="FwI-kB-uI2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="cS1-Yh-ZuP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="C4R-EU-7df" secondAttribute="bottom" id="fYR-VO-bpM"/>
                             <constraint firstItem="Ag8-GT-t3k" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="rj6-mb-Z9M"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ag8-GT-t3k" secondAttribute="trailing" constant="20" id="wco-Jt-OiS"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pickerView" destination="C4R-EU-7df" id="6BF-46-EX8"/>
-                        <outlet property="priceLabel" destination="Ag8-GT-t3k" id="SW8-Uy-r2K"/>
+                        <outlet property="priceLabel" destination="Ag8-GT-t3k" id="GHF-PK-6aD"/>
                         <outlet property="textField" destination="FwI-kB-uI2" id="Qgp-I6-JWe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="98"/>
+            <point key="canvasLocation" x="301" y="-53"/>
         </scene>
     </scenes>
     <resources>

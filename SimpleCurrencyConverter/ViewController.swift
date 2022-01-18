@@ -7,19 +7,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
 
-    // MARK - IBOutlets
-    @IBOutlet weak var priceLabel: UILabel!
+class ViewController: UIViewController{
+
+    // MARK: - IBOutlets
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var priceLabel: UILabel!
     
+    // MARK: - IBActions
+    @IBAction func Convertbutton(_ sender: Any) {
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
-
-
+    
 }
-

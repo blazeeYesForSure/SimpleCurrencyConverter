@@ -16,6 +16,12 @@ class ViewController: UIViewController{
     
     // MARK: - IBActions
     @IBAction func Convertbutton(_ sender: Any) {
+        if let amountText = textField.text{
+            if let theAmountText = Double(amountText){
+                let total = theAmountText * rateUsdCurrency
+                priceLabel.text = String(format: "%.2f", total)
+            }
+        }
     }
     // MARK: - Properties
     var rateUsdCurrency = 0.0
@@ -42,7 +48,6 @@ class ViewController: UIViewController{
             do{
                 let results = try JSONDecoder().decode(ExchangeRates.self, from: safeData)
                 rateUsdCurrency = results.rates["USD"]!
-                print(rateUsdCurrency)
                 }
             catch{
                 print(error)

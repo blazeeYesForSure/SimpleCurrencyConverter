@@ -17,21 +17,17 @@ class ViewController: UIViewController{
     // MARK: - IBActions
     @IBAction func Convertbutton(_ sender: Any) {
         if let amountText = textField.text{
-            if let theAmountText = Double(amountText){
-                total = theAmountText * rateUsdCurrency
-                myAmountText = amountText
-                priceLabel.text = String(format: "%.2f", total)
+            if let doubleAmountText = Double(amountText){
+                convertedAmountUsd = doubleAmountText * rateUsdCurrency
+                inputAmountEur = amountText
+                priceLabel.text = String(format: "%.2f", convertedAmountUsd)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                    self.popUpAlert(total: self.total, amountText: self.myAmountText)
+                    self.popUpAlert(convertedAmountUsd: self.convertedAmountUsd, inputAmountEur: self.inputAmountEur)
                 }
             }
             else{
-                total = 0
-                myAmountText = amountText
-                priceLabel.text = String(format: "%.2f", total)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                priceLabel.text = "Twoja kwota w USD"
                     self.popUpAlert()
-                }
             }
         }
 
@@ -40,8 +36,8 @@ class ViewController: UIViewController{
     
     // MARK: - Properties
     var rateUsdCurrency = 0.0
-    var total = 0.0
-    var myAmountText = ""
+    var convertedAmountUsd = 0.0
+    var inputAmountEur = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +47,7 @@ class ViewController: UIViewController{
     //MARK: - Methods
     func fetechJSON() {
         guard let url = URL(string: "https://open.er-api.com/v6/latest/EUR") else {return}
-        URLSession.shared.dataTask(with: url) { [self](data,response, error) in
+        let dataTask = URLSession.shared.dataTask(with: url) { [self](data,response, error) in
             //handle any errors if there are any
             if error != nil  {
                 print(error!)
@@ -69,18 +65,19 @@ class ViewController: UIViewController{
                 print(error)
                 
             }
-        }.resume()
+        }
+        dataTask.resume()
     }
     
-    func popUpAlert(total:Double, amountText:String) {
-        let alert = UIAlertController(title: "Wymiana", message: amountText + "EUR" + " to " + String(format: "%.2f", total) + "USD", preferredStyle: .alert)
+    func popUpAlert(convertedAmountUsd:Double, inputAmountEur:String) {
+        let alert = UIAlertController(title: "Wymiana", message: inputAmountEur + "EUR" + " to " + String(format: "%.2f", convertedAmountUsd) + "USD", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {action in print("tapped OK")}))
         present(alert, animated: true)
     }
     
     func popUpAlert() {
         let alert = UIAlertController(title: "BŁĄD!", message: "Wprowadź poprawne dane!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: {action in print("tapped OK")}))
+        alert.addAction(UIAlertAction(title: "Poprawiam", style: .destructive, handler: {action in print("tapped Poprawiam")}))
         present(alert, animated: true)
     }
     

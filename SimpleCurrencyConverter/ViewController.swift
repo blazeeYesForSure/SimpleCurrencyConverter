@@ -21,12 +21,22 @@ class ViewController: UIViewController{
                 total = theAmountText * rateUsdCurrency
                 myAmountText = amountText
                 priceLabel.text = String(format: "%.2f", total)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                    self.popUpAlert(total: self.total, amountText: self.myAmountText)
+                }
+            }
+            else{
+                total = 0
+                myAmountText = amountText
+                priceLabel.text = String(format: "%.2f", total)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    self.popUpAlert()
+                }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            self.popUpAlert(total: self.total, amountText: self.myAmountText)
-        }
+
     }
+    
     
     // MARK: - Properties
     var rateUsdCurrency = 0.0
@@ -63,8 +73,14 @@ class ViewController: UIViewController{
     }
     
     func popUpAlert(total:Double, amountText:String) {
-        let alert = UIAlertController(title: "Wymiana", message: amountText + "USD" + " to " + String(format: "%.2f", total) + "EUR", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Wymiana", message: amountText + "EUR" + " to " + String(format: "%.2f", total) + "USD", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {action in print("tapped OK")}))
+        present(alert, animated: true)
+    }
+    
+    func popUpAlert() {
+        let alert = UIAlertController(title: "BŁĄD!", message: "Wprowadź poprawne dane!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: {action in print("tapped OK")}))
         present(alert, animated: true)
     }
     

@@ -6,9 +6,9 @@
 //
 
 import UIKit
+import UserNotifications
 
-
-class ViewController: UIViewController{
+class ViewController: UIViewController, UNUserNotificationCenterDelegate{
 
     // MARK: - IBOutlets
     @IBOutlet weak var textField: UITextField!
@@ -21,8 +21,14 @@ class ViewController: UIViewController{
                 convertedAmountUsd = doubleAmountText * rateUsdCurrency
                 inputAmountEur = amountText
                 priceLabel.text = String(format: "%.2f", convertedAmountUsd)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-                    self.popUpAlert(convertedAmountUsd: self.convertedAmountUsd, inputAmountEur: self.inputAmountEur)
+                    let notificationContent = UNMutableNotificationContent()
+                    notificationContent.title = "Twoje przewalutowanie"
+                    notificationContent.body = self.inputAmountEur + "EUR" + " to " + String(format: "%.2f", self.convertedAmountUsd) + "USD"
+                    let notificationTriger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+                    let converterRequestIdentifier = "wymianaWalut"
+                    let request = UNNotificationRequest(identifier: converterRequestIdentifier, content: notificationContent, trigger: notificationTriger)
+                    UNUserNotificationCenter.current().add(request) {(error) in
+                        print(error as Any)
                 }
             }
             else{
@@ -42,9 +48,11 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         fetechJSON()
+        UNUserNotificationCenter.current().delegate = self
     }
 
     //MARK: - Methods
+    
     func fetechJSON() {
         guard let url = URL(string: "https://open.er-api.com/v6/latest/EUR") else {return}
         let dataTask = URLSession.shared.dataTask(with: url) { [self](data,response, error) in
@@ -69,16 +77,14 @@ class ViewController: UIViewController{
         dataTask.resume()
     }
     
-    func popUpAlert(convertedAmountUsd:Double, inputAmountEur:String) {
-        let alert = UIAlertController(title: "Wymiana", message: inputAmountEur + "EUR" + " to " + String(format: "%.2f", convertedAmountUsd) + "USD", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {action in print("tapped OK")}))
-        present(alert, animated: true)
-    }
-    
     func popUpAlert() {
         let alert = UIAlertController(title: "BŁĄD!", message: "Wprowadź poprawne dane!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Poprawiam", style: .destructive, handler: {action in print("tapped Poprawiam")}))
         present(alert, animated: true)
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .sound])
     }
     
 }
